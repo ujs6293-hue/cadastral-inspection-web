@@ -1,0 +1,11 @@
+import {checkLines} from './docs/rules.mjs';
+import assert from 'node:assert/strict';
+const t=s=>checkLines([{text:s,bbox:{x0:0,y0:0,x1:100,y1:10}}]);
+assert.equal(t('100 / 200 x 100 = 70%').length,1);
+assert.equal(t('119 / 614 x 100 = 19.4%').length,0);
+assert.equal(t('100 / 0 x 100 = 70%').length,0);
+assert.equal(t('공차=±0.1, 오차=-0.2').length,1);
+assert.equal(t('공차=±0.2, 오차=-0.1').length,0);
+assert.equal(t('전자평판측량 위성측량').length,1);
+assert.equal(t('위성측량').length,0);
+console.log('7 rule checks passed');
